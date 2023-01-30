@@ -40,7 +40,7 @@ func CArray() *cobra.Command {
 	}
 	command.Flags().StringP("input", "i", "", "Input file")
 	command.Flags().StringP("output", "o", "", "Output file, default is <input>.c")
-	command.Flags().StringP("format", "f", "hex", "Format of the array, default is hex")
+	command.Flags().StringP("format", "f", "hex", "Format of the array, possible values are: hex, decimal, octal, binary")
 	command.MarkFlagRequired("input")
 	command.MarkFlagFilename("input")
 	command.MarkFlagFilename("output")
