@@ -1,0 +1,30 @@
+# write a ci cd file for github actions that builds and releases the go binary
+
+name: ci-cd
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Go 1.19
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.19
+      - name: Build
+        run: go build -o file-converter
+      - name: Test
+        run: go test -v ./...
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ./file-converter
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
